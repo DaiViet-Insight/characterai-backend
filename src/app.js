@@ -1,5 +1,7 @@
-const express = require('express');
+const express = require("express");
 const app = express();
+const router = express.Router();
+const userMiddleware = require("./middleware/user.middleware.js");
 
 // CORS error handling
 app.use((req, res, next) => {
@@ -18,6 +20,20 @@ app.use((req, res, next) => {
     next();
 });
 
-app.use('/api/users', require('./routes/user.js'));
+const bodyParser = require("body-parser");
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
+
+app.use("/api", router);
+app.use("/api/users", require("./routes/user.route.js"));
+app.use(
+    "/api/characters",
+    userMiddleware.Validate,
+    require("./routes/character.route.js")
+);
+
+router.get("/", (req, res, next) => {
+    res.send("Server is running ...");
+});
 
 module.exports = app;
