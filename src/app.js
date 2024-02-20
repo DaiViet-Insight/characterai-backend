@@ -2,6 +2,7 @@ const express = require("express");
 const app = express();
 const router = express.Router();
 const userMiddleware = require("./middleware/user.middleware.js");
+const path = require('path');
 
 // CORS error handling
 app.use((req, res, next) => {
@@ -31,6 +32,7 @@ app.use(
     userMiddleware.Validate,
     require("./routes/character.route.js")
 );
+app.use('/assets/images/character', express.static(path.join(__dirname, 'images', 'characters')));
 
 router.get("/", (req, res, next) => {
     res.send("Server is running ...");
