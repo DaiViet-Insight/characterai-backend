@@ -4,10 +4,10 @@ const mysql = require("mysql");
 
 // Tạo kết nối đến cơ sở dữ liệu MySQL
 const connection = mysql.createConnection({
-    host: "127.0.0.1",
-    user: "root",
-    password: "",
-    database: "daivietcharacter",
+    host: process.env.HOSTNAME || "127.0.0.1",
+    user: process.env.USER || "root",
+    password: process.env.PASSWORD || "",
+    database: process.env.DATABASE_NAME || "daivietcharacter",
 });
 
 // Kết nối vào cơ sở dữ liệu

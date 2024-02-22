@@ -1,3 +1,4 @@
+require("dotenv").config();
 const server = require("http").createServer();
 const port = 3005;
 const app = require("./app.js");
